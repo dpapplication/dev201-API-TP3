@@ -54,6 +54,23 @@ module.exports.updateLivre=async(req,res)=>{
     }
 }
 
+/**
+ * @description supprimer  un livre
+ * @router /livre/:id
+ * @method DELETE
+ */
+module.exports.deleteLivre=async(req,res)=>{
+    try {
+        const deletedLivre=
+        await Livre.findByIdAndDelete(req.params.id).populate('auteur')
+        deletedLivre? 
+        res.status(200).json(deletedLivre):
+        res.status(404).json({message:"n'existe pas"})
+    } catch (error) {
+        res.status(500).json({message:error.message})
+    }
+}
+
 /***
  * @description livres entre deux prix
  * @router /livre/prix/:min/:max
@@ -61,8 +78,8 @@ module.exports.updateLivre=async(req,res)=>{
  */
 module.exports.searchByPrice=async(req,res)=>{
     try {
-        const min=req.params.min
-        const max=req.params.max
+        const {min,max}=req.params
+        
         //$gte = superieur ou egal
         //$lte = inferieur ou egal
         const getLivre=await Livre.find({prix:{$gte:min,$lte:max}})
