@@ -7,5 +7,6 @@ router.get('/:id',valideId,livreController.getLivreById)
 router.put('/:id',valideId,livreController.updateLivre)
 router.delete('/:id',valideId,livreController.deleteLivre)
 router.get('/prix/:min/:max',livreController.searchByPrice)
+router.get('/livres/ids',livreController.getBooksByIds)
 
 module.exports=router

@@ -88,3 +88,18 @@ module.exports.searchByPrice=async(req,res)=>{
         res.status(500).json({message:error.message})
     }
 }
+/**
+ * @description recuperer les informations des livres selon ids
+ * @router /livre/ids
+ * @method GET
+ */
+module.exports.getBooksByIds=async(req,res)=>{
+try {
+    const {ids}=req.body
+    const books=await Livre.find({_id :{$in:ids}})
+    res.status(200).json(books)
+
+} catch (error) {
+    res.status(500).json({message:error.message})
+}
+}

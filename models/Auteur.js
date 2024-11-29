@@ -15,6 +15,12 @@ const auteurSchema=new mongoose.Schema({
         trim:true
     },
     bio:String
+},{
+   toObject:{virtuals:true} ,toJSON:{virtuals:true}
 })
-
+auteurSchema.virtual('livre',{
+    ref:"livre",
+    localField:"_id",
+    foreignField:"auteur"
+})
 module.exports=mongoose.model('auteur',auteurSchema)

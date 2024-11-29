@@ -20,7 +20,7 @@ module.exports.createAuteur = async (req, res) => {
  */
 module.exports.getAllAuteur=async(req,res)=>{
     try {
-        const allAuteur = await Auteur.find();
+        const allAuteur = await Auteur.find().populate('livre');
         res.status(200).json(allAuteur);
       } catch (error) {
         res.status(500).json({ message: error.message });
